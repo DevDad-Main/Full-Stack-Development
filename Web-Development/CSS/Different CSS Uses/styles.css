@@ -1,0 +1,43 @@
+/* Element Selector */
+html {
+    background-color: yellow;
+    
+} 
+
+/* UNIVERSAL SELECTOR */
+/* *{
+    color: red;
+} */
+
+
+/* Class Selector 
+We can apply this to specific elements so not all are the same
+*/
+.red-text{
+    color: red;
+}
+.green-heading{
+    color: green;
+}
+.blue-heading{
+    color: blue;
+}
+
+/* ID SELECTOR */
+#main {
+    background-color: orange;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* ATTRIBUTE SELECTOR */
+
+/* This selects all the paragraph elements with the 
+draggable attribute and modifies their value */
+p[draggable]{
+    color:rgb(255, 23, 185)
+}
+
+p[draggable="false"]{
+    color:rgb(0, 255, 0);
+}
