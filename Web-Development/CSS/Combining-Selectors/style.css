@@ -1,0 +1,34 @@
+/* Write your code here: */
+
+/* GROUP SELECTOR ->
+Groups together the selected elements seperated by
+a comma ',' */
+h1, h2 {
+    color: blueviolet;
+}
+
+
+/* CHILD SELECTOR ->
+Gets only the direct child elements of the parent */
+.box > p{
+    color: firebrick;
+}
+
+/* DESCENDANT SELECTOR ->
+Gets everything under the parent and amends it 
+OR we could acces the .box class and then get all
+the Li children inside of it
+
+
+.box li {
+    color:blue;
+}
+
+Same thing as below
+*/
+
+
+
+.list li{
+    color: blue;
+}
