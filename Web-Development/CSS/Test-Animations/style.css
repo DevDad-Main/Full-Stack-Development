@@ -1,0 +1,58 @@
+body{
+    background-color: black;
+}
+
+.loading {
+    height: 50px;
+    width: 50px;
+    border: 6px solid aqua;
+    border-radius: 4px;
+
+    /* Using Box Shadow for glow effect */
+    box-shadow: 0 0 8px aqua, 0 0 8px aqua inset;
+
+    /* Absolute positioning to center in the screen */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    /* Make sure its ontop of everything else */
+    z-index: 10;
+
+    /* Init our animation */
+    animation: loading 2s ease-in-out 1s infinite;
+}
+
+
+
+@keyframes loading {
+    0% {
+        transform: translate(-50%, -50%) rotateX(0) rotateY(0) rotateZ(0);
+    }
+    33% {
+        transform: translate(-50%, -50%) rotateX(180deg) rotateY(0) rotateZ(0);
+    }
+    67% {
+        transform: translate(-50%, -50%) rotateX(180deg) rotateY(180deg) rotateZ(0);
+    }
+    100% {
+        transform: translate(-50%, -50%) rotateX(180deg) rotateY(180deg) rotateZ(180deg);
+    }
+}
+
+/* 
+@keyframes loading {
+    0% {
+        transform: rotateX(0) rotateY(0) rotateZ(0);
+    }
+    33%{
+        transform: rotateX(180) rotateY(0) rotateZ(0);
+    }
+    67%{
+        transform: rotateX(180) rotateY(180) rotateZ(0);
+    }
+    100% {
+        transform: rotateX(180) rotateY(180) rotateZ(180);
+    }
+} */

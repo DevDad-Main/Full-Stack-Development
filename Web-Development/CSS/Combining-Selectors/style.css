@@ -27,8 +27,29 @@ the Li children inside of it
 Same thing as below
 */
 
-
-
 .list li{
     color: blue;
+}
+
+/* CHAINED SELECTOR 
+
+.selector.selector#selectior{
+    color: seagreen;
+}
+*/
+
+/* First item in the chain 
+HAS to be the element we want to access */
+li.done{
+    color:seagreen;
+}
+
+/* Combing Chained Selectors 
+
+-> First we access the element
+-> Then we get the child of that element we want i.e p
+-> Then we get the class tobe more specific
+*/
+ul p.done{
+    font-size: 0.5rem;
 }
