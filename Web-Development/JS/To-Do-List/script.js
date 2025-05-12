@@ -107,4 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
     animation: 150,
     onEnd: saveTasks
   });
+
+  // Make filterTasks globally accessible
+  window.filterTasks = filterTasks;
 });
