@@ -24,6 +24,13 @@ readline.question("What is your name? ", (firstName) => {
     readline.close();
   });
 });
+
+readline.question("What is your name? ", (tempVar) => {
+
+  readline.close();
+})
+
+
 // // Ask for the user's name
 // var firstName = readline.question("What is your name? ");
 // var curshName = readline.question("What is your crush's name?");
