@@ -52,35 +52,93 @@
 //   $("h1").css("color", "purple");
 // });
 //
-$(document).keypress((event) => {
-  // Logs to the console the keys we press on the keyboard
-  //console.log(event.key);
-  console.log(event.key);
-  $("h1").text(event.key);
+// $(document).keypress((event) => {
+//   // Logs to the console the keys we press on the keyboard
+//   //console.log(event.key);
+//   console.log(event.key);
+//   $("h1").text(event.key);
+// });
+//
+// // using the on function allows us to pass in different event types
+// // like click etc
+// $("h1").on("mouseover", () => {
+//   $("h1").css("color", "purple");
+// });
+//
+// //adding and removing elements on the fly or dynamically
+// // Before func allows us to create a new element before the one we select
+// $("h1").before("<button>New Button</button>");
+//
+// // And the After func allows us to create the element After
+// // the selected eleemenet
+// $("h1").after("<button>New Button</button>");
+//
+// // Prepend will actually add it to the h1 element
+// // before the h1 text
+// $("h1").prepend("<button>New Button</button>");
+//
+// // Append will actually add it to the h1 element
+// // after the h1 text
+// $("h1").append("<button>New Button</button>");
+//
+// // Removing element is aactually quite easy
+// // we use the remove method
+// // $("button").remove();
+//
+// // Hide is an animation event that will hide the selected element
+// $("h1").on("click", () => {
+//   $("h1").hide();
+// });
+//
+// // Toggle is an animation event that will toggle the selected element
+// $("button").on("click", () => {
+//   $("h1").toggle();
+// });
+//
+// // Fade In is an animation event that will Fade In the selected element
+// $("button").on("click", () => {
+//   $("h1").fadeIn();
+// });
+//
+// // Fade Out is an animation event that will Fade Out the selected element
+// $("button").on("click", () => {
+//   $("h1").fadeOut();
+// });
+//
+// // Fade Totgle is an animation event that will toggle the selected element
+// $("button").on("click", () => {
+//   $("h1").fadeToggle();
+// });
+//
+// // slideUp is an animation event that will collapse the selected element
+// $("button").on("click", () => {
+//   $("h1").slideUp();
+// });
+//
+// // Slide Out is an animation event that will show down the selected element
+// $("button").on("click", () => {
+//   $("h1").slideDown();
+// });
+//
+// // Side lToggle is an animation event that will show down the selected element
+// $("button").on("click", () => {
+//   $("h1").slideToggle();
+// });
+//
+
+// Custom css animations
+// We can only animate numeric values, so colours etc wont work but
+// things like opacity will, percentages and px need to be in " "
+$("button").on("click", () => {
+  $("h1").animate({
+    opacity: 0.5,
+    margin: "20px",
+  });
 });
 
-// using the on function allows us to pass in different event types
-// like click etc
-$("h1").on("mouseover", () => {
-  $("h1").css("color", "purple");
+// We can also chain multiple tweenings together like so
+$("button").on("click", () => {
+  $("h1").slideUp().slideDown().animate({
+    opacity: 0.5,
+  });
 });
-
-//adding and removing elements on the fly or dynamically
-// Before func allows us to create a new element before the one we select
-$("h1").before("<button>New Button</button>");
-
-// And the After func allows us to create the element After
-// the selected eleemenet
-$("h1").after("<button>New Button</button>");
-
-// Prepend will actually add it to the h1 element
-// before the h1 text
-$("h1").prepend("<button>New Button</button>");
-
-// Append will actually add it to the h1 element
-// after the h1 text
-$("h1").append("<button>New Button</button>");
-
-// Removing element is aactually quite easy
-// we use the remove method
-$("button").remove();
