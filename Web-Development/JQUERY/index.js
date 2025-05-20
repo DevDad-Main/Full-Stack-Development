@@ -129,12 +129,12 @@
 // Custom css animations
 // We can only animate numeric values, so colours etc wont work but
 // things like opacity will, percentages and px need to be in " "
-$("button").on("click", () => {
-  $("h1").animate({
-    opacity: 0.5,
-    margin: "20px",
-  });
-});
+// $("button").on("click", () => {
+//   $("h1").animate({
+//     opacity: 0.5,
+//     margin: "20px",
+//   });
+// });
 
 // We can also chain multiple tweenings together like so
 $("button").on("click", () => {
