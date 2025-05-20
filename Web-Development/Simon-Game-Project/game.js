@@ -6,14 +6,31 @@ function nextSequence() {
   return randomNumber;
 }
 
+function playSound(name) {
+  var randomChosenAudio = new Audio(`./sounds/${name}.mp3`);
+  randomChosenAudio.play();
+}
+
+function animatePress(currentColour) {
+  $(`#${currentColour}`).addClass("pressed");
+  setTimeout(() => {
+    $(`#${currentColour}`).removeClass("pressed");
+  }, 100);
+}
+
 var randomChosenColour = buttonColours[nextSequence()];
 
-gamePattern.push(randomChosenColour);
-
-//#region
 $(`#${randomChosenColour}`).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
-var randomChosenAudio = new Audio(`./sounds/${randomChosenColour}.mp3`);
-randomChosenAudio.play();
-//#endregion
 
-$(".btn").click((event) => {});
+$(".btn").click((event) => {
+  var buttonId = event.target.id;
+  gamePattern.push(buttonId);
+  console.log(gamePattern);
+  playSound(buttonId);
+  animatePress(buttonId);
+  // if (buttonId === randomChosenColour) {
+  //   gamePattern.push(randomChosenColour);
+  //   console.log(gamePattern);
+  //   playSound(randomChosenColour);
+  // }
+});
