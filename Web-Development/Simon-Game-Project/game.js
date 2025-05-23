@@ -60,5 +60,27 @@ function checkAnswer(currentLevel) {
     }
   } else {
     console.log("Wrong");
+    gameOver();
+    startOver();
   }
+}
+
+function gameOver() {
+  console.log("Game Over");
+  playSound("wrong");
+
+  $("body").addClass("game-over");
+
+  setTimeout(() => {
+    $("body").removeClass("game-over");
+
+    $("h1").text("Game Over, Press Any Key to Restart");
+  }, 200);
+}
+
+function startOver() {
+  console.log("Starting Over");
+  level = 0;
+  gamePattern = [];
+  started = false;
 }
