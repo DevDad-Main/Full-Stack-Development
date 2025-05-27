@@ -1,6 +1,7 @@
 import express from "express";
 import bodyParser from "body-parser";
 
+const { json } = bodyParser;
 const app = express();
 const port = 3000;
 
@@ -12,12 +13,33 @@ const recipeJSON =
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 
+let data;
+
 app.get("/", (req, res) => {
-  res.render("index.ejs");
+  // Then we pass the data over in new object with the name recipe
+  // so we can access it in our ejs file
+  res.render("index.ejs", { recipe: data });
 });
 
 app.post("/recipe", (req, res) => {
   //Step 3: Write your code here to make this behave like the solution website.
+  switch (req.body.choice) {
+    case "chicken":
+      data = JSON.parse(recipeJSON)[0];
+      break;
+    case "beef":
+      data = JSON.parse(recipeJSON)[1];
+      break;
+    case "fish":
+      data = JSON.parse(recipeJSON)[2];
+      break;
+
+    default:
+      break;
+  }
+  // We redirect them back to the main index page and update the information displayed
+  res.redirect("/");
+  // res.render("index.ejs", data);
   //Step 4: Add code to views/index.ejs to use the recieved recipe object.
 });
 
