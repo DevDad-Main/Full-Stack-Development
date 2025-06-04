@@ -48,15 +48,16 @@ app.get("/", async (req, res) => {
 });
 
 app.post("/add", async (req, res) => {
-  const result = req.body.country.toLowerCase();
+  const userInput = req.body.country.toLowerCase();
   let resultCountryCode = "";
+
   countries.forEach((country) => {
-    if (result === country.Country) {
+    if (userInput === country.Country) {
       if (visitedCountries.includes(country.Code)) {
-        Console.log("Element Already Exists");
+        console.log("Element Already Exists");
         return;
       } else {
-        Console.log("Adding: ", country.Code);
+        console.log("Adding:", country.Code);
       }
 
       resultCountryCode = country.Code;
@@ -73,10 +74,14 @@ app.post("/add", async (req, res) => {
   // });
   //
   //BUG: Due to use db.end() below in this query, our other query in the post route returns an error
-  // db.query("INSERT INTO visited_countries (country_code) ($1)", [
-  //   resultCountryCode,
-  // ]);
-  // db.end();
+  // const result = await db.query(
+  //   `INSERT INTO visited_countries
+  //   (country_code)
+  //   VALUES ($1)`,
+  //   [resultCountryCode],
+  // );
+  //
+  // console.log(result);
 });
 
 app.listen(port, () => {
