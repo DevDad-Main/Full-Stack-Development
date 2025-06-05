@@ -63,11 +63,18 @@ app.post("/add", async (req, res) => {
   const userInput = req.body.country;
 
   try {
+    //NOTE: This will allow us to fuzily find a certain keyword or input, for e.g our users input.
+    // We will search for the word passed in and anything else before it and after so the user does not need to be exact
+    // also retun the reusltto be a lowercase verson
     const result = await db.query(
-      "SELECT country_code from countries WHERE country_name=$1",
-      [userInput],
+      "SELECT country_code from countries WHERE LOWER(country_name) LIKE '%' || $1 || '%';",
+      [userInput.toLowerCase()],
     );
-
+    // const result = await db.query(
+    //   "SELECT country_code from countries WHERE country_name=$1",
+    //   [userInput],
+    // );
+    //
     const data = result.rows[0];
     const countryCode = data.country_code;
 

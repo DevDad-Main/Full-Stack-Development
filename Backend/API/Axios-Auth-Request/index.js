@@ -57,6 +57,7 @@ app.get("/apiKey", async (req, res) => {
   } catch (error) {
     console.log("Failed to make request", error.message);
   }
+  
 });
 
 app.get("/bearerToken", async (req, res) => {
