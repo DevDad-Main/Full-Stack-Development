@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 let currentUserId = 1;
-
+// let users = [];
 //NOTE: Querying DB for Users and placing them into an object then into a list for us to access
 async function getUsers() {
   const result = await db.query("SELECT * FROM users");
@@ -36,6 +36,13 @@ async function getUsers() {
   return users;
 }
 
+async function getCurrentUser(users) {
+  const result = await db.query("SELECT * FROM users");
+  users = result.rows;
+
+  return users.find((user) => user.id === currentUserId);
+}
+
 async function checkVisisted() {
   const result = await db.query(
     "SELECT country_code FROM visited_countries WHERE user_id=$1",
@@ -48,31 +55,31 @@ async function checkVisisted() {
   return countries;
 }
 
-function getCurrentUserColour(users) {
-  //NOTE: Fallback
-  let colour = "white";
-
-  users.forEach((user) => {
-    if (currentUserId === user.id) return (colour = user.color);
-  });
-
-  return colour;
-}
+//NOTE: Instead made a new Function to get the
+//NOTE: Current User from our users list and access the data directly
+//NOTE: instead of this extra code
+// function getCurrentUserColour(users) {
+//   //NOTE: Default Value incase we get an error below, but shouldn't happen
+//   let colour = "white";
+//
+//   users.forEach((user) => {
+//     if (currentUserId === user.id) return (colour = user.color);
+//   });
+//
+//   return colour;
+// }
 
 app.get("/", async (req, res) => {
-  try {
-    const countries = await checkVisisted();
-    const users = await getUsers();
+  const countries = await checkVisisted();
+  const users = await getUsers();
+  const currentUser = await getCurrentUser(users);
 
-    res.render("index.ejs", {
-      countries: countries,
-      total: countries.length,
-      users: users,
-      color: getCurrentUserColour(users),
-    });
-  } catch (err) {
-    console.log("Error: ", err);
-  }
+  res.render("index.ejs", {
+    countries: countries,
+    total: countries.length,
+    users: users,
+    color: currentUser.color,
+  });
 });
 
 app.post("/add", async (req, res) => {
@@ -101,15 +108,11 @@ app.post("/add", async (req, res) => {
 });
 
 app.post("/user", async (req, res) => {
-  const isNumeric = (string) => string == Number.parseFloat(string);
-
-  if (isNumeric(req.body.user)) {
+  if (req.body.add === "new") {
+    res.render("new.ejs");
+  } else {
     currentUserId = parseInt(req.body.user);
     res.redirect("/");
-  } else if (req.body.add === "new") {
-    console.log(" We should now create a new family member");
-    // res.redirect("/new");
-    res.render("new.ejs");
   }
   //NOTE: Debugging the user id that gets passed through the body parser
   console.log(req.body);
@@ -120,18 +123,23 @@ app.post("/new", async (req, res) => {
   //https://www.postgresql.org/docs/current/dml-returning.html
 
   //NOTE: We Render the page so the user can see all the details
-  res.render("new.ejs");
+  // res.render("new.ejs");
   //NOTE: Simple Debugging
   console.log(req.body);
 
-  try {
-    const newUser = await db.query(
-      "INSERT INTO users (name, color) VALUES($1, $2)",
-      [req.body.name, req.body.color],
-    );
-  } catch (err) {
-    console.log(err);
-  }
+  //NOTE: We use RETURNING * which will return us that new record or row we just added
+  //NOTE: Then we can access the new users id and set it to the current one
+  //NOTE: When we get redirected back to the homepage
+  const newUser = await db.query(
+    "INSERT INTO users (name, color) VALUES($1, $2) RETURNING *",
+    [req.body.name, req.body.color],
+  );
+
+  // Accessing that id from our newely created user and then set the currentUserId to it.
+  const id = result.rows[0].id;
+  currentUserId = id;
+
+  res.redirect("/");
 });
 
 app.listen(port, () => {
